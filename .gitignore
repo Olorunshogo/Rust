@@ -416,3 +416,15 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+
+# Rust build artifacts
+**/target/
+
+# Cargo-specific files
+**/*.rs.bk
+
+# VSCode or IntelliJ project files (optional)
+.vscode/
+.idea/
+

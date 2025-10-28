@@ -14,14 +14,14 @@ pub fn assignment_1() {
   }
 
   // Generate the nth Fibonacci number.
-  fn fibonacci_sequence(n: u128) -> u128 {
+  fn fibonacci_number(n: u128) -> u128 {
     let mut a: u128 = 0;
     let mut b: u128 = 1;
 
     for i in 0..n {
-      let temp: u128 = a;
+      let temporary_var: u128 = a;
       a = b;
-      b = temp + a;
+      b = temporary_var + a;
     }
     println!("Fibonacci sequence for b is: {}", b);
 
@@ -30,6 +30,23 @@ pub fn assignment_1() {
 
   }
 
+  fn fibonacci_sequence(n: u128) -> u128 {
+    let mut a: u128 = 0;
+    let mut b: u128 = 1;
+  
+    println!("n    Fn");
+    for i in 0..n {
+      let temporary_var: u128 = a;
+      a = b;
+      b = temporary_var + a;
+      println!("{}   {}", i, b);
+    }
+    println!("Fibonacci number for b is: {}", b);
+  
+    return b;
+  
+  }
+  
 
   // Print the lyrics to the Christmas carol “The Twelve Days of Christmas,” taking advantage of the repetition in the song.
   fn lyrics_loop() {

@@ -30,6 +30,7 @@ pub fn assignment_1() {
 
   }
 
+  // Generate the nth Fibonacci sequencew
   fn fibonacci_sequence(n: u128) -> u128 {
     let mut a: u128 = 0;
     let mut b: u128 = 1;
@@ -49,7 +50,7 @@ pub fn assignment_1() {
   
 
   // Print the lyrics to the Christmas carol “The Twelve Days of Christmas,” taking advantage of the repetition in the song.
-  fn lyrics_loop() {
+  fn lyrics_loop_testing() {
 
     let lyrics_testing: [&str; 12] = [
       "A partridge in a pear tree", "Two turtle doves and", 
@@ -83,4 +84,50 @@ pub fn assignment_1() {
     }
   }
 
+  fn lyrics_loop() {
+
+    let christmas_lyrics: [&str; 12] = [
+      "A partridge in a pear tree", "Two turtle doves and", 
+      "Three french hens", "Four calling birds",
+      "Five golden rings", "Six geese a-laying",
+      "Seven swans a-swimming", "Eight maids a-milking",
+      "On the ninth day of Christmas, my true love sent to me", "On the tenth day of Christmas, my true love sent to me",
+      "On the eleventh day of Christmas, my true love sent to me", "Twelve drummers drumming"
+    ];
+  
+  
+    let ordinals = [
+      "first", "second", "third", "fourth", "fifth", "sixth",
+      "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth",
+    ];
+  
+    let positions: [u32; 12] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; 
+  
+    for (index, day) in ordinals.iter().enumerate() {
+      println!("Verse {}", positions[index]);
+      println!("On the {} day of Christmas, my true love sent to me", day);    
+  
+      for j in (0..=index).rev() {
+        if j > 0 {
+          println!("{}", christmas_lyrics[j]);          
+        }
+      }
+  
+      println!("{}", christmas_lyrics[0]);
+      println!("");
+  
+      // for j in (0..=index).rev() {
+      //   // Add "and" before the first item if it's not the first day
+      //   if j == 0 && index != 0 {
+      //       println!("and {}", christmas_lyrics[j]);
+      //   } else {
+      //       println!("{}", christmas_lyrics[j]);
+      //   }
+      // }
+      
+    }
+  }
+  
 }
+
+

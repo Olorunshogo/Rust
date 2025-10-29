@@ -14,10 +14,10 @@ println!("Hello, world!");
   // assignments::assignment_1::fibonacci_sequence(8);
   // assignments::assignment_1::lyrics_loop();
 
-  class2();
-
+  // class2();
 
 }
+
 
 fn class2() {
   // Ownership
@@ -56,7 +56,6 @@ fn calculate_length(s: &String) {
 
 }
 
-// Fibonacci number
 
 
 

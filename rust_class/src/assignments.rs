@@ -1,47 +1,58 @@
+
 pub mod assignment_1 {
     // Convert temperatures between Fahrenheit and Celsius
-    pub fn fahrenheit_to_celsius(x: u32) -> u32 {
-        let celsius = (x * (9 / 5)) + 32;
-        println!("The value of {x} in °F is: {}", celsius);
+    /// Make both the fahrenheit_to_celsius and celsius_to_fahrenheit to support decimal (f32)
+    /// and probably display up to just 2 decimal places
+    
+    pub fn fahrenheit_to_celsius(x: u32) -> f64 {
+        // let celsius: f64 = (x - 32.0) * (5.0 / 9.0);
+        // println!("The value of {x}°F is: {}°C", celsius);
+
+        let celsius: f64 = (x as f64 - 32.0) * (5.0 / 9.0);
+        println!("The value of {x}°F is: {:.3}°C", celsius);
         return celsius;
     }
-
-    pub fn celsius_to_fahrenheit(x: u32) -> u32 {
-        let fahrenheit: u32 = (x - 32) / (9 / 5);
-        println!("The value of {x} in °C is: {}", fahrenheit);
+    
+    pub fn celsius_to_fahrenheit(x: f64) -> f64 {
+        let fahrenheit: f64 = (x * 1.80) + 32.0;
+        println!("The value of {x}°C is: {:.1}°F", fahrenheit);
         return fahrenheit;
     }
 
     // Generate the nth Fibonacci number.
-    pub fn fibonacci_number(n: u128) -> u128 {
-        let mut a: u128 = 0;
-        let mut b: u128 = 1;
-
-        for _i in 0..n {
-            let temporary_var: u128 = a;
-            a = b;
-            b = temporary_var + a;
+    pub fn fibonacci_number(n: u32) -> u32 {
+        if n == 0 {
+            return 0;
+        } else if n == 1 {
+            return 1;
         }
-        println!("Fibonacci sequence for b is: {}", b);
-
+    
+        let mut a: u32 = 0;
+        let mut b: u32 = 1;
+    
+        for _ in 2..=n {
+            let temporary_var = a + b;
+            a = b;
+            b = temporary_var;
+        }
+    
+        println!("The {}th Fibonacci number is: {}.", n, b);
         return b;
     }
 
-    // Generate the nth Fibonacci sequencew
-    pub fn fibonacci_sequence(n: u128) -> u128 {
-        let mut a: u128 = 0;
-        let mut b: u128 = 1;
-
+    // Generate the nth Fibonacci sequence
+    pub fn fibonacci_sequence(n: u32) {
+        let mut a: u32 = 0;
+        let mut b: u32 = 1;
+    
         println!("n    Fn");
+    
         for i in 0..n {
-            let temporary_var: u128 = a;
+            println!("{:<4} {}", i, a);
+            let temporary_var = a + b;
             a = b;
-            b = temporary_var + a;
-            println!("{}   {}", i, b);
+            b = temporary_var;
         }
-        println!("Fibonacci number for b is: {}", b);
-
-        return b;
     }
 
     // Print the lyrics to the Christmas carol “The Twelve Days of Christmas,” taking advantage of the repetition in the song.
@@ -55,9 +66,9 @@ pub mod assignment_1 {
             "Six geese a-laying",
             "Seven swans a-swimming",
             "Eight maids a-milking",
-            "On the ninth day of Christmas, my true love sent to me",
-            "On the tenth day of Christmas, my true love sent to me",
-            "On the eleventh day of Christmas, my true love sent to me",
+            "Nine ladies dancing",
+            "Ten lords a-leaping",
+            "Eleven pipers piping",
             "Twelve drummers drumming",
         ];
 
@@ -84,7 +95,8 @@ pub mod assignment_1 {
         }
     }
 
-    pub fn lyrics_loop() {
+    /// Work on the implementation to print the particular lyrics of a particular day
+    fn lyrics_loop() {
         let christmas_lyrics: [&str; 12] = [
             "A partridge in a pear tree",
             "Two turtle doves and",
@@ -94,9 +106,9 @@ pub mod assignment_1 {
             "Six geese a-laying",
             "Seven swans a-swimming",
             "Eight maids a-milking",
-            "On the ninth day of Christmas, my true love sent to me",
-            "On the tenth day of Christmas, my true love sent to me",
-            "On the eleventh day of Christmas, my true love sent to me",
+            "Nine ladies dancing",
+            "Ten lords a-leaping",
+            "Eleven pipers piping",
             "Twelve drummers drumming",
         ];
 
@@ -154,9 +166,9 @@ pub mod assignment_2 {
     impl CoffeeSize {
         pub fn base_price(&self) -> f32 {
             match self {
-                CoffeeSize::Small => 3.50,
-                CoffeeSize::Medium => 4.50,
-                CoffeeSize::Large => 5.50,
+                CoffeeSize::Small => { 3.50 },
+                CoffeeSize::Medium => { 4.50 },
+                CoffeeSize::Large => { 5.50 },
             }
         }
 
@@ -194,12 +206,12 @@ pub mod assignment_2 {
         // Calculate total price
         pub fn calculate_total_price(&self) -> f32 {
             let base_price = self.shot_size.base_price();
-            let base_shots = 2;
-            let extra_shots = if self.shot_quantity > base_shots {
-                self.shot_quantity - included_shots
+            let base_shots: f32 = 2.0;
+            let extra_shots = if (self.shot_quantity as f32) > base_shots {
+                (self.shot_quantity as f32) - base_shots
             } else {
                 0.0
-            }
+            };
 
             let total_price = base_price + (extra_shots as f32 * 0.50);
             return total_price;
@@ -207,12 +219,13 @@ pub mod assignment_2 {
 
         // Print a friendly description
         pub fn describe(&self) {
-            let drink_type = if self.is_drink_iced { "Iced" } else { "Hot" };
-            println(
-                "{} ordered a {:?} {} coffee ({} oz) with {} espresso shots. Total: ${:.2}",
+            let drink_type = if self.is_drink_iced { "an Iced" } else { "a Hot" };
+            
+            println!(
+                "{} ordered {:?} {} coffee ({} oz) with {} espresso shots. Total: ${:.2}",
                 self.customers_name,
                 drink_type,
-                match self.size {
+                match self.shot_size {
                     CoffeeSize::Small => "Small",
                     CoffeeSize::Medium => "Medium",
                     CoffeeSize::Large => "Large",
@@ -223,25 +236,27 @@ pub mod assignment_2 {
             );
         }
 
-        // Step 5: Test Everything
-        pub fn run_coffee_shop_demo() {
-            // First Order
-            let mut order1 = CoffeeOrder::new("Jane", CoffeeSize::Medium);
-            order1.make_iced();
-            order1.add_expresso_shot(2);
-            order1.describe();
-            
-            // Second Order
-            let mut order2 = CoffeeSize::new("John", CoffeeSize::Small);
-            order2.add_espresso_shot(4);
-            order2.describe();
-
-            // Third Order
-            let mut order3 = CoffeeOrder::new("Doe", CoffeeSize::Large);
-            order3.describe();
-        }
-
     }
+
+    // Step 5: Test Everything
+    pub fn run_coffee_shop_demo() {
+        // First Order
+        let mut order1 = CoffeeOrder::new("Jane", CoffeeSize::Medium);
+        order1.make_iced();
+        order1.add_espresso_shot(2);
+        order1.describe();
+
+        
+        // Second Order
+        let mut order2 = CoffeeOrder::new("John", CoffeeSize::Small);
+        order2.add_espresso_shot(4);
+        order2.describe();
+
+        // Third Order
+        let order3 = CoffeeOrder::new("Doe", CoffeeSize::Large);
+        order3.describe();
+    }
+    
 }
 
 

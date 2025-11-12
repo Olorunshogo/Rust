@@ -108,12 +108,12 @@ pub fn class1() {
 }
 
 
-fn calculate_length(s: &String) {
+fn _calculate_length(s: &String) {
     println!("Calculating length...{}", s);
     println!("The length of {} is: {}", s, s.len());
 }
 
-fn first_word(s: &String) -> &str {
+fn _first_word(s: &String) -> &str {
     let bytes = s.as_bytes();
 
     for (i, &item) in bytes.iter().enumerate() {
@@ -143,7 +143,7 @@ impl Rectangle {
     }
 }
 
-fn build_user(email: String, username: String) -> User {
+fn _build_user(email: String, username: String) -> User {
     User {
         active: true,
         username: username,
@@ -156,7 +156,7 @@ fn area(width: u32, height: u32) -> u32 {
     width * height
 }
 
-fn area_dimensions(dimensions: (u32, u32)) -> u32 {
+fn _area_dimensions(dimensions: (u32, u32)) -> u32 {
     dimensions.0 * dimensions.1
 }
 
@@ -174,7 +174,7 @@ pub fn class2() {
 
     user1.email = String::from("anotheremail@example.com");
 
-    let mut user2 = User {
+    let mut _user2 = User {
         active: user1.active,
         username: user1.username,
         email: user1.email,
@@ -197,7 +197,7 @@ pub fn class2() {
         "The area of the rectangle is {} square pixels.",
         area_rectangle(&rect1)
     );
-    let scale: i32 = 2;
+    let _scale: i32 = 2;
     let rect2 = Rectangle {
         width: 40,
         height: 50,
@@ -216,7 +216,7 @@ pub fn class2() {
 pub fn class3() {
     student();
 
-    let user1: User = User {
+    let _user1: User = User {
         active: true,
         username: String::from("someusername123"),
         email: String::from("someone@example.com"),
@@ -235,7 +235,7 @@ struct Student<'a> {
 }
 
 #[derive(Debug)]
-enum Gender <'a> {
+enum _Gender <'a> {
 	MALE,
 	FEMALE,
 	OTHERS(&'a str)
@@ -243,13 +243,13 @@ enum Gender <'a> {
 
 
 impl<'v> Student<'v> {
-    fn build_student<'T>(
+    fn _build_student<'t>(
         // Associate function
-        first_name: &'T str,
-        last_name: &'T str,
+        first_name: &'t str,
+        last_name: &'t str,
         age: u8,
-        gender: &'T str,
-    ) -> Student<'T> {
+        gender: &'t str,
+    ) -> Student<'t> {
         Student {
             first_name,
             last_name,
@@ -263,7 +263,7 @@ impl<'v> Student<'v> {
         self.first_name
     }
 
-    fn change_name(&mut self, new_name: &'v str) {
+    fn _change_name(&mut self, new_name: &'v str) {
         self.first_name = new_name;
     }
 }
@@ -299,12 +299,12 @@ fn student() {
     println!("Student data: {:#?}", student);
 }
 
-fn build_student<'T>(
-    first_name: &'T str,
-    last_name: &'T str,
+fn _build_student<'t>(
+    first_name: &'t str,
+    last_name: &'t str,
     age: u8,
-    gender: &'T str,
-) -> Student<'T> {
+    gender: &'t str,
+) -> Student<'t> {
     Student {
         first_name,
         last_name,

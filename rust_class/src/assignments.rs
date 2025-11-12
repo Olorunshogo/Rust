@@ -55,48 +55,8 @@ pub mod assignment_1 {
         }
     }
 
-    // Print the lyrics to the Christmas carol “The Twelve Days of Christmas,” taking advantage of the repetition in the song.
-    pub fn lyrics_loop_testing() {
-        let lyrics_testing: [&str; 12] = [
-            "A partridge in a pear tree",
-            "Two turtle doves and",
-            "Three french hens",
-            "Four calling birds",
-            "Five golden rings",
-            "Six geese a-laying",
-            "Seven swans a-swimming",
-            "Eight maids a-milking",
-            "Nine ladies dancing",
-            "Ten lords a-leaping",
-            "Eleven pipers piping",
-            "Twelve drummers drumming",
-        ];
-
-        let positions: [u32; 12] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-        for (index, _day) in positions.iter().enumerate() {
-            println!("Verse {}", positions[index]);
-            println!(
-                "On the {} day of Christmas, my true love sent to me",
-                lyrics_testing[index]
-            );
-
-            for j in (0..=index).rev() {
-                if j > 0 {
-                    println!("{}", lyrics_testing[j]);
-                    // println!("{}", lyrics_testing[0]);
-                    // println!("");
-                } else {
-                    // println!("");
-                }
-            }
-
-            println!("{}", lyrics_testing[0]);
-            println!("");
-        }
-    }
-
     /// Work on the implementation to print the particular lyrics of a particular day
-    fn lyrics_loop() {
+    pub fn lyrics_loop() {
         let christmas_lyrics: [&str; 12] = [
             "A partridge in a pear tree",
             "Two turtle doves and",
@@ -143,6 +103,7 @@ pub mod assignment_1 {
         }
     }
 }
+
 
 pub mod assignment_2 {
     // Step1: Define the Size Enum

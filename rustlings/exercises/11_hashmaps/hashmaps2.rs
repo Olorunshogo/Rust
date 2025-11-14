@@ -1,3 +1,4 @@
+
 // We're collecting different fruits to bake a delicious fruit cake. For this,
 // we have a basket, which we'll represent in the form of a hash map. The key
 // represents the name of each fruit we collect and the value represents how
@@ -10,7 +11,7 @@
 
 use std::collections::HashMap;
 
-#[derive(Hash, PartialEq, Eq, Debug)]
+#[derive(Hash, PartialEq, Eq, Debug, Clone)]
 enum Fruit {
     Apple,
     Banana,
@@ -28,15 +29,32 @@ fn fruit_basket(basket: &mut HashMap<Fruit, u32>) {
         Fruit::Pineapple,
     ];
 
+    //scores.insert(String::from("Blue"), 10);
+    //scores.insert(String::from("Yellow"), 50);
+
+
     for fruit in fruit_kinds {
         // TODO: Insert new fruits if they are not already present in the
         // basket. Note that you are not allowed to put any type of fruit that's
         // already present!
+
+        basket.entry(fruit.clone()).or_insert(match fruit {
+            Fruit::Banana => 3,
+            Fruit::Pineapple => 2,
+            _ => 0,
+        });
     }
 }
 
 fn main() {
     // You can optionally experiment here.
+    let mut basket = HashMap::from([
+        (Fruit::Apple, 4),
+        (Fruit::Mango, 2),
+        (Fruit::Lychee, 5),
+    ]);
+    fruit_basket(&mut basket);
+    println!("{:?}", basket);
 }
 
 #[cfg(test)]

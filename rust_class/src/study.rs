@@ -8,7 +8,9 @@ enum SpreadsheetCell {
   Text(String),
 }
 
-pub fn lessons_1() {
+pub fn study_1() {
+  println!("This is study 1");
+
   let mut v: Vec<i32> = Vec::new();
   v.push(5);
   v.push(6);
@@ -134,6 +136,49 @@ pub fn lessons_1() {
   }
 
   println!("{map:?}");
+
+}
+
+use std::fs::File;
+
+enum Result<T, E> {
+  Ok(T),
+  Err(E),
+}
+
+pub fn factorial(n: u64) -> u64 {
+  if n == 0 {
+    1
+  } else {
+    n * factorial_1(n - 1)
+  }
+}
+
+pub fn factorial_1(n: u64) -> u64 {
+  (1..=n).product()
+}
+
+pub fn factorial_2(n: u64) -> u64 {
+  (1..=n)
+    .map(|x| x) // mapping each number to itself (could transform here if needed)
+    .reduce(|acc, x| acc * x) // multiply all together
+    .unwrap_or(1) // handle the empty case (like factorial(0))
+}
+
+pub fn study_2() {
+  println!("");
+  println!("This is study 2");
+
+  // panic!("Crash and burn");
+  // let v = vec![1, 2, 3];
+  // let v1 = v[99];
+  // println!("{:?}", v);
+  // println!("{:?}", v1);
+
+  // let greeting_file_result = File::open("hello.txt");
+  // format!({:?}, greeting_file_result);
+
+
 
 }
 

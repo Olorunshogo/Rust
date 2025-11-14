@@ -1,10 +1,10 @@
 
-use crate::assignments::assignment_1;
-use crate::assignments::assignment_2;
-use crate::lessons::lessons_1;
+use crate::assignments::{ assignment_1, assignment_2 };
+
+use crate::study::{ study_1, study_2, factorial, factorial_1, factorial_2 };
 
 mod assignments;
-mod lessons;
+mod study;
 
 fn main() {
 
@@ -14,9 +14,18 @@ fn main() {
   // assignment_1::fibonacci_sequence(12);
   // assignment_1::lyrics_loop();
 
-  // assignment_2::run_coffee_shop_demo();
+  assignment_2::run_coffee_shop_demo();
 
   // Lessons
-  lessons_1();
+  // study_1();
+  study_2();
+
+  let num = 5;
+  println!("Factorial of {} is {}", num, factorial(num));
+  println!("Factorial_1 of {} is {}", num, factorial_1(num));
+  println!("Factorial_2 of {} is {}", num, factorial_2(num));
+
 
 }
+
+

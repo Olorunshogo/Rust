@@ -1,9 +1,11 @@
 
+#![allow(dead_code)]
+
 use std::collections::HashMap;
 
 #[derive(Debug)]
 enum SpreadsheetCell {
-  Int(i32),
+  Int(u32),
   Float(f64),
   Text(String),
 }
@@ -90,9 +92,6 @@ pub fn study_1() {
   let s = s1 + "-" + &s2 + "-" + &s3;
   println!("S is: {}", s);
 
-  let hello_rs = "Здравствуйте";
-  let s = &hello[0..4];
-
   for c in "Зд".chars() {
     println!("{c}");
   }
@@ -112,9 +111,10 @@ pub fn study_1() {
   scores.insert(String::from("Yellow"), 50);
 
   let team_name = String::from("Blue");
-  let score = scores.get(&team_name).copied().unwrap_or(0);
+  let _score: i32 = scores.get(&team_name).copied().unwrap_or(0);
   scores.entry(String::from("Yellow")).or_insert(50);
   scores.entry(String::from("Blue")).or_insert(50);
+
 
   for (key, value) in &scores {
     println!("{key}: {value};");
@@ -139,31 +139,195 @@ pub fn study_1() {
 
 }
 
-use std::fs::File;
 
 enum Result<T, E> {
   Ok(T),
   Err(E),
 }
 
-pub fn factorial(n: u64) -> u64 {
-  if n == 0 {
-    1
-  } else {
-    n * factorial_1(n - 1)
+pub mod mod_factorial {
+  pub fn factorial(n: u64) -> u64 {
+    let result: u64 = if n == 0 {
+      1
+    } else {
+      n * factorial_1(n - 1)
+    };
+
+    println!("Factorial of {} is: {}.", n, result);
+    return result;
+  }
+
+  pub fn factorial_1(n: u64) -> u64 {
+    let result: u64 = (1..=n).product();
+    println!("Factorial_1 of {} is: {}.", n, result);
+    return result;
+  }
+
+  pub fn factorial_2(n: u64) -> u64 {
+    let result: u64 = (1..=n)
+      .map(|x: u64| x) // mapping each number to itself (could transform here if needed)
+      .reduce(|acc: u64, x: u64| acc * x)  // multiply all together
+      .unwrap_or(1); // handle the empty case (like factorial(0))
+      println!("Factorial_2 of {} is: {}.", n, result);
+      return result;
+  }
+
+}
+
+use std::ffi::c_float;
+use std::fmt::{format, Display};
+use std::io::Split;
+use std::net::IpAddr;
+use std::cmp::PartialOrd;
+
+#[derive(Debug)]
+struct Point<T, U> {
+  x: T,
+  y: U,
+}
+
+struct PointXY<X1, Y1> {
+  x: X1,
+  y: Y1,
+}
+
+impl<X1, Y1> PointXY<X1, Y1> {
+  fn mixup<X2, Y2>(self, other: PointXY<X2, Y2>) -> PointXY<X1, Y2> {
+    PointXY { 
+      x: self.x, 
+      y: other.y,
+    }
   }
 }
 
-pub fn factorial_1(n: u64) -> u64 {
-  (1..=n).product()
+trait Summary {
+  fn summarize_author(&self) -> String;
+
+  // fn summarize(&self) -> String {
+  //   String::from("(Read more...)")
+  // }
+
+  fn summarize(&self) -> String {
+    format!("(Read more from {}...)", self.summarize_author())
+  }
 }
 
-pub fn factorial_2(n: u64) -> u64 {
-  (1..=n)
-    .map(|x| x) // mapping each number to itself (could transform here if needed)
-    .reduce(|acc, x| acc * x) // multiply all together
-    .unwrap_or(1) // handle the empty case (like factorial(0))
+struct NewsArticle {
+  headline: String,
+  location: String,
+  author: String,
+  content: String,
+}  
+
+impl Summary for NewsArticle {
+  fn summarize_author(&self) -> String {
+    format!("@{}", self.headline)
+  }
+
+  fn summarize(&self) -> String {
+    format!("{}, by {} ({})",
+      self.headline, self.author, self.location
+    )
+  }
 }
+
+pub struct SocialPost {
+  username: String,
+  content: String,
+  reply: bool,
+  repost: bool,
+}
+
+impl Summary for SocialPost {
+  fn summarize_author(&self) -> String {
+    format!("@{}", self.username)
+  }
+
+  fn summarize(&self) -> String {
+    format!("{}: {}", self.username, self.content)
+  }
+}
+
+fn notify(item: &impl Summary) {
+  println!("Breaking news! {}", item.summarize());
+}
+
+
+
+trait MakeNoise {
+  fn make_noise(&self);
+}
+struct Lion;
+struct Parrot;
+
+impl MakeNoise for Lion {
+  fn make_noise(&self) {
+    println!("ROAR");
+  }
+}
+
+impl MakeNoise for Parrot {
+  fn make_noise(&self) {
+    println!("Pretty bird!");
+  }
+}
+
+fn feeding_time(animal: &impl MakeNoise) {
+  println!("Feeding time!");
+  animal.make_noise();
+}
+
+fn longest_with_announcement<'a, T>(
+  x: &'a str, 
+  y: &'a str,
+  ann: T,
+) -> &'a str
+  where T: Display,
+{
+  println!("Announcement! {}", ann);
+  if x.len() > y.len() { x } else { y }
+}
+
+struct ImportantExcerpt<'a> {
+  part: &'a str,
+}
+
+fn largest_i32(list: &[i32]) -> &i32 {
+  let mut largest: &i32 = &list[0];
+
+  for item in list {
+    if item > largest {
+      largest = item;
+    }
+  }
+
+  return largest;
+}
+
+fn largest<T: std::cmp::PartialOrd>(list: &[T]) -> &T {
+  let mut largest = &list[0];
+  for item in list {
+    if item > largest {
+      largest = item;
+    }
+  }
+
+  return largest;
+}
+
+fn largest_char(list: &[char]) -> &char {
+  let mut largest: &char = &list[0];
+
+  for item in list {
+    if item > largest {
+      largest = item;
+    }
+  }
+
+  return largest;
+}
+
+
 
 pub fn study_2() {
   println!("");
@@ -177,14 +341,130 @@ pub fn study_2() {
 
   // let greeting_file_result = File::open("hello.txt");
   // format!({:?}, greeting_file_result);
+  let _home: IpAddr = "127.0.0.1"
+      .parse()
+      .expect("Hardcoded Ip address should be valid");
 
+  // Generic Types, Traits, and Lifetimes
+  // Generic Data Types
+  let number_list: Vec<i32> = vec![34, 50, 25, 100, 45];
+  let result: &i32 = largest_i32(&number_list);
+  println!("The largest number is: {}", result);
 
+  let char_list: Vec<char> = vec!['y', 'm', 'a', 'q'];
+  let result: &char = largest_char(&char_list);
+  println!("The largest char is: {}", result);
+
+  let number_list: Vec<i32> = vec![34, 50, 25, 100, 45];
+  let result: &i32 = largest(&number_list);
+  println!("The largest number is: {}", result);
+
+  let char_list: Vec<char> = vec!['y', 'm', 'a', 'q'];
+  let result: &char = largest(&char_list);
+  println!("The largest char is: {}", result);
+
+  let integer: Point<i32, i32> = Point { x: 5, y: 10 };
+  println!("Integer: {:#?}", integer);
+
+  let float: Point<f64, f64> = Point { x: 1.0, y: 4.0 };  
+  println!("Float: {:#?}", float);
+
+  let integer_and_float: Point<i32, f64> = Point { x: 5, y: 4.0 };
+  println!("Float: {:#?}", integer_and_float);
+
+  let p1: PointXY<i32, f64> = PointXY { x: 5, y: 10.4 };
+  let p2: PointXY<&str, char> = PointXY{ x: "Hello", y: 'c' };
+  let p3: PointXY<i32, char> = p1.mixup(p2);
+  println!("p3.x = {}, p3.y = {}", p3.x, p3.y);
+
+  let post: SocialPost = SocialPost {
+    username: String::from("horse_ebooks"),
+    content: String::from(
+      "of course, as you probably already know, people",
+    ),
+    reply: false,
+    repost: false,
+  };
+
+  println!("1 new post: {}", post.summarize());
+
+  let article: NewsArticle = NewsArticle {
+    headline: String::from("Penguins win the Stanley Cup Championship!"),
+    location: String::from("Pittsburgh, PA, USA"),
+    author: String::from("Iceburgh"),
+    content: String::from(
+      "The Pittsburgh Penguins once again are the best \
+      hockey team in the NHL.",
+    ),
+  };
+
+  println!("New article available! {}", article.summarize());
+
+  // feeding_time(parrot);
+
+  let x: i32 = 5;
+  let r: &i32 = &x;
+
+  println!("The value of r is: {}", r);
+
+  let string1: String = String::from("abcd");
+  let string2: &str = "xyz";
+
+  let string_result = longest_with_announcement(string1.as_str(), string2, "Comparing strings");
+  println!("The longest string is: {}", string_result);
+
+  let novel: String = String::from("Call me Ishmael. Some years ago...");
+  let first_sentence: &str = novel.split('.').next().unwrap();
+  let _i: ImportantExcerpt<'_> = ImportantExcerpt {
+    part: first_sentence,
+  };
 
 }
 
 
+fn add_two(num: i32) -> i32 {
+  let result: i32 = num + 2;
+  println!("The sum of {} and 2 is: {}.", num, result);
+  return result;
+}
 
+fn add_ten(num: i32) -> i32 {
+  let result: i32 = num + 10;
+  println!("The sum of {} and 10 is: {}.", num, result);
+  return result;
+}
 
+fn minus_fifty(num: i32) -> i32 {
+  let result: i32 = num - 50;
+  println!("The difference of {} and 50 is: {}.", num, result);
+  return result;
+}
+
+pub fn add(left: i32, right: i32) -> i32 {
+  let sum: i32 = left + right;
+  println!("The sum of {} and {} is: {}.", left, right, sum);
+  return sum;
+}
+
+pub fn greeting(name: &str) -> String {
+  let full_name: String = format!("Hello {}", name);
+  return full_name;
+}
+
+pub fn study_3() {
+  println!("");
+  println!("11. Writing to Write Tests");
+  println!("11.1 - Controlling How Tests Are Run");
+  println!("");
+
+  add_two(7);
+  add_ten(50);
+  minus_fifty(30);
+  add(30, -30);
+
+  println!("");
+  greeting("Olorunshogo");
+}
 
 
 

@@ -1,4 +1,6 @@
 
+#![allow(dead_code)]
+
 pub mod assignment_1 {
     // Convert temperatures between Fahrenheit and Celsius
     /// Make both the fahrenheit_to_celsius and celsius_to_fahrenheit to support decimal (f32)

@@ -1,4 +1,6 @@
 
+#![allow(dead_code)]
+
 pub fn class1() {
 
     //   let a: u8 = 66;
@@ -313,5 +315,11 @@ fn _build_student<'t>(
     }
 }
 
+
+pub mod bitcoin_dojo {
+    pub fn bitcoin_dojo_1() {
+      print!("This is bitcoin dojo");
+    }
+  }
 
 

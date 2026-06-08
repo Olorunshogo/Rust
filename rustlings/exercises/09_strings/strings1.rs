@@ -1,7 +1,6 @@
 // TODO: Fix the compiler error without changing the function signature.
 fn current_favorite_color() -> String {
-    let favorite_color = String::from("blue");
-    return favorite_color;
+    "blue"
 }
 
 fn main() {

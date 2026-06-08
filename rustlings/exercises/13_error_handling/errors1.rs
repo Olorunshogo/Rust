@@ -4,13 +4,12 @@
 // construct to `Option` that can be used to express error conditions. Change
 // the function signature and body to return `Result<String, String>` instead
 // of `Option<String>`.
-fn generate_nametag_text(name: String) -> Result<String, String> {
-    let error_msg:  String = "Field cannot be empty".to_string();
+fn generate_nametag_text(name: String) -> Option<String> {
     if name.is_empty() {
         // Empty names aren't allowed
-        Err(error_msg)
+        None
     } else {
-        Ok(format!("Hi! My name is {name}"))
+        Some(format!("Hi! My name is {name}"))
     }
 }
 

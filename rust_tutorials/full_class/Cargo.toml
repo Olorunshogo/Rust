@@ -1,0 +1,13 @@
+[package]
+name = "full_class"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+# This will make error to break the code instead of unwinding which is Rust way of cleaning up the stack, and quit
+[profile.dev]
+panic = "unwind"
+
+[profile.release]
+panic = "abort"

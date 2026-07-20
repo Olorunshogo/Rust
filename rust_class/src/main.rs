@@ -13,24 +13,24 @@ fn main() {
 
   assignment_1::fahrenheit_to_celsius(182);
   assignment_1::celsius_to_fahrenheit(100.0);
-  // assignment_1::fibonacci_number(12);
-  // assignment_1::fibonacci_sequence(12);
-  // assignment_1::lyrics_loop();
+  assignment_1::fibonacci_number(12);
+  assignment_1::fibonacci_sequence(12);
+  assignment_1::lyrics_loop();
 
-  // assignment_2::run_coffee_shop_demo();
+  assignment_2::run_coffee_shop_demo();
 
   // Classes
   bitcoin_dojo::bitcoin_dojo_1();
 
   // Lessons
-  // study_1();
+  study_1();
 
-  // mod_factorial::factorial(5);
-  // mod_factorial::factorial_1(5);
-  // mod_factorial::factorial_2(5);
+  mod_factorial::factorial(5);
+  mod_factorial::factorial_1(5);
+  mod_factorial::factorial_2(5);
 
-  // println!("");
-  // study_2();
+  println!("");
+  study_2();
 
   println!("");
   study_3();
